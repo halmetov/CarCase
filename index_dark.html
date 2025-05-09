@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoCover – Чехлы для авто</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+    }
+
+    header {
+      background: #2b2b3d;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #f5c242;
+    }
+
+    .categories {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+      background: #262636;
+      flex-wrap: wrap;
+    }
+
+    .category {
+      padding: 0.5rem 1.2rem;
+      background: #3c3c50;
+      border-radius: 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .category:hover {
+      background: #f5c242;
+      color: #000;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #2a2a3d;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 0.8rem 0 0.4rem;
+      color: #fff;
+    }
+
+    .card p {
+      color: #ccc;
+      margin: 0 1rem 0.5rem;
+    }
+
+    .price {
+      color: #f5c242;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .card button {
+      margin-top: 0.5rem;
+      background: #f5c242;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: #ffd85a;
+    }
+
+    footer {
+      background: #2b2b3d;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AutoCover</h1>
+    <span>Чехлы для вашего авто</span>
+  </header>
+
+  <div class="categories">
+    <div class="category">Все</div>
+    <div class="category">Седан</div>
+    <div class="category">Внедорожник</div>
+    <div class="category">Пикап</div>
+    <div class="category">Универсал</div>
+  </div>
+
+  <div class="product-grid">
+    <div class="card">
+      <img src="https://via.placeholder.com/400x200?text=Чехол+Седан" alt="Чехол Седан">
+      <h3>Чехол для Седана</h3>
+      <p>Защита и стиль для вашего седана.</p>
+      <div class="price">15 000 ₸</div>
+      <button>Заказать</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/400x200?text=Чехол+SUV" alt="Чехол Внедорожник">
+      <h3>Чехол для Внедорожника</h3>
+      <p>Прочный и водонепроницаемый чехол.</p>
+      <div class="price">20 000 ₸</div>
+      <button>Заказать</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/400x200?text=Чехол+Пикап" alt="Чехол Пикап">
+      <h3>Чехол для Пикапа</h3>
+      <p>Подходит под экстремальные условия.</p>
+      <div class="price">18 000 ₸</div>
+      <button>Заказать</button>
+    </div>
+  </div>
+
+  <footer>
+    Контакты: +7 777 123 4567 | Instagram: @autocover.kz
+  </footer>
+</body>
+</html>

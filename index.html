@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Чехлы для Авто</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefefe;
+      color: #222;
+    }
+
+    header {
+      background: #ffdd00;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .category {
+      background: #fff5b1;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+
+    .category:hover {
+      background: #ffe066;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .menu-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 3rem;
+    }
+
+    .menu-card img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+    }
+
+    .menu-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #2b8a3e;
+      font-size: 1.1rem;
+    }
+
+    .order-btn {
+      margin-top: 0.5rem;
+      background: #ff8800;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .order-btn:hover {
+      background: #ff6f00;
+    }
+
+    footer {
+      background: #f1f1f1;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .modal-content input {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .close-modal {
+      margin-top: 0.5rem;
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>Чехлы для авто CarCase</header>
+
+<div class="categories">
+  <div class="category" data-filter="all">Все</div>
+  <div class="category" data-filter="кожа">Кожаные</div>
+  <div class="category" data-filter="ткань">Тканевые</div>
+  <div class="category" data-filter="лето">Летние</div>
+</div>
+
+<div class="menu-container">
+  <div class="menu-card" data-category="кожа">
+    <img src="foto/koj.avif" alt="Кожаный чехол">
+    <h3>Кожаный Чехол</h3>
+    <div class="price">8000 ₸</div>
+    <button class="order-btn">Заказать</button>
+  </div>
+  <div class="menu-card" data-category="ткань">
+    <img src="foto/tk.jpg" alt="Тканевый чехол">
+    <h3>Тканевый Чехол</h3>
+    <div class="price">5000 ₸</div>
+    <button class="order-btn">Заказать</button>
+  </div>
+  <div class="menu-card" data-category="лето">
+    <img src="foto/lt.avif" alt="Летний чехол">
+    <h3>Летний Чехол</h3>
+    <div class="price">6000 ₸</div>
+    <button class="order-btn">Заказать</button>
+  </div>
+</div>
+
+<footer>Телефон: +7 (700) 123-45-67</footer>
+
+<!-- Modal -->
+<div class="modal" id="orderModal">
+  <div class="modal-content">
+    <h3>Оформление заказа</h3>
+    <input type="text" id="userName" placeholder="Ваше имя" />
+    <input type="tel" id="userPhone" placeholder="Ваш номер" />
+    <button onclick="sendOrder()">Отправить</button>
+    <button class="close-modal" onclick="closeModal()">Отмена</button>
+  </div>
+</div>
+
+<script>
+  const categories = document.querySelectorAll('.category');
+  const cards = document.querySelectorAll('.menu-card');
+  const modal = document.getElementById('orderModal');
+  const orderButtons = document.querySelectorAll('.order-btn');
+  let selectedProduct = '';
+
+  categories.forEach(category => {
+    category.addEventListener('click', () => {
+      const filter = category.getAttribute('data-filter');
+      cards.forEach(card => {
+        card.style.display = filter === 'all' || card.getAttribute('data-category') === filter
+          ? 'block' : 'none';
+      });
+    });
+  });
+
+  orderButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const card = e.target.closest('.menu-card');
+      selectedProduct = card.querySelector('h3').innerText;
+      modal.style.display = 'flex';
+    });
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+ async function sendOrder() {
+    const name = document.getElementById('userName').value;
+    const phone = document.getElementById('userPhone').value;
+
+    if (!name || !phone) {
+      alert('Пожалуйста, заполните все поля!');
+      return;
+    }
+
+    const token = '7762952907:AAHam9UbS03d6JAqVfbDZGxYw1VkGyZBuvc';
+    const chat_id = '7930576661';
+    const message = `Новый заказ:
+    Товар: ${selectedProduct}
+    Имя: ${name}
+    Телефон: ${phone}`;
+
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chat_id,
+        text: message
+      })
+    });
+
+    alert('Спасибо! Ваш заказ отправлен.');
+    closeModal();
+  }
+
+</script>
+
+</body>
+</html>
